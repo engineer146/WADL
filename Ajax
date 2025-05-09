@@ -1,0 +1,134 @@
+1)index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        input, button { padding: 8px; font-size: 16px; }
+        button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Phone Number">
+        <button type="submit">Register</button>
+    </form>
+
+    <p><a href="display.html">View Registered Users</a></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+------------------
+2) Disply.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Registered Users</h1>
+    <div id="usersList">
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <!-- Users will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <p><a href="index.html">Back to Registration</a></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+-------------
+3)script.js
+if (document.getElementById('registrationForm')) {
+    const registrationForm = document.getElementById('registrationForm');
+    registrationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const user = {
+            name: name,
+            email: email,
+            phone: phone,
+            timestamp: new Date().toISOString()
+        };
+        saveUserToLocalStorage(user);
+        registrationForm.reset();
+        alert('Registration successful!');
+    });
+
+    function saveUserToLocalStorage(user) {
+        let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        users.push(user);
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
+    }
+    
+    function simulateAjaxPost(user) {
+        console.log('Simulating AJAX POST with data:', user);
+    }
+} else if (document.getElementById('usersTableBody')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const usersTableBody = document.getElementById('usersTableBody');
+        const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        
+        if (users.length === 0) {
+            usersTableBody.innerHTML = '<tr><td colspan="3">No users registered yet.</td></tr>';
+        } else {
+            usersTableBody.innerHTML = '';
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone || 'N/A'}</td>
+                `;
+                usersTableBody.appendChild(row);
+            });
+        }
+    });
+}
+-----
+4)app.js
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
