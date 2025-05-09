@@ -1,0 +1,104 @@
+1)setup the Apache webserver on AWS 
+Commands -> sudo apt-get update
+            sudo apt-get install apache2
+            sudo systemctl start apache2
+            sudo systemctl status apache2
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+2) AWS HOST Static Website
+sudo apt update
+sudo apt install apache2
+sudo apt install unzip
+unzip yash.zip
+sudo systemctl start apache2
+sudo systemctl status apache2
+cd /var/www
+ls
+cd html
+ls
+cd\
+sudo cp -r oxer-html /var/www/html
+cd /var/www/html
+ls
+sudo mv index.html /var/www
+cd /var/www
+ls
+cd html
+ls
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+ubuntu@ip-172-31-9-185:~$ sudo systemctl start apache2
+ubuntu@ip-172-31-9-185:~$ sudo systemctl status apache2
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/apache2.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-05-07 05:32:15 UTC; 1min 10s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+   Main PID: 2511 (apache2)
+      Tasks: 55 (limit: 1077)
+     Memory: 5.6M (peak: 6.0M)
+        CPU: 41ms
+     CGroup: /system.slice/apache2.service
+             ├─2511 /usr/sbin/apache2 -k start
+             ├─2514 /usr/sbin/apache2 -k start
+             └─2515 /usr/sbin/apache2 -k start
+
+May 07 05:32:15 ip-172-31-9-185 systemd[1]: Starting apache2.service - The Apache HTTP Server...
+May 07 05:32:15 ip-172-31-9-185 systemd[1]: Started apache2.service - The Apache HTTP Server.
+ubuntu@ip-172-31-9-185:~$ ls
+oxer-html  yash.zip
+ubuntu@ip-172-31-9-185:~$ cd /var/www
+ubuntu@ip-172-31-9-185:/var/www$ ls
+html
+ubuntu@ip-172-31-9-185:/var/www$ cd html
+ubuntu@ip-172-31-9-185:/var/www/html$ ls
+index.html
+ubuntu@ip-172-31-9-185:/var/www/html$ cd/
+-bash: cd/: No such file or directory
+ubuntu@ip-172-31-9-185:/var/www/html$
+ubuntu@ip-172-31-9-185:/var/www/html$ cd\
+>
+ubuntu@ip-172-31-9-185:~$ sudo cp -r oxer-html /var/www/html
+ubuntu@ip-172-31-9-185:~$ cd /var/www/html
+ubuntu@ip-172-31-9-185:/var/www/html$ ls
+index.html  oxer-html
+ubuntu@ip-172-31-9-185:/var/www/html$ sudo mv index.html /var/www
+ubuntu@ip-172-31-9-185:/var/www/html$ cd /var/www
+ubuntu@ip-172-31-9-185:/var/www$ ls
+html  index.html
+ubuntu@ip-172-31-9-185:/var/www$ cd html
+ubuntu@ip-172-31-9-185:/var/www/html$ ls
+oxer-html
+
+--------------------------------------------------------------------------------------------------------------
+2nd example
+ubuntu@ip-172-31-24-49:~$ ls
+mediplus-lite  yash.zip
+ubuntu@ip-172-31-24-49:~$ cd /var/www
+ubuntu@ip-172-31-24-49:/var/www$ ls
+html
+ubuntu@ip-172-31-24-49:/var/www$ cd html
+ubuntu@ip-172-31-24-49:/var/www/html$ ls
+index.html
+ubuntu@ip-172-31-24-49:/var/www/html$ cd\
+>
+ubuntu@ip-172-31-24-49:~$ sudo cp -r mediplus-lite /var/www/html
+ubuntu@ip-172-31-24-49:~$ ls
+mediplus-lite  yash.zip
+ubuntu@ip-172-31-24-49:~$ cd /var/www
+ubuntu@ip-172-31-24-49:/var/www$ ls
+html
+ubuntu@ip-172-31-24-49:/var/www$ cd html
+ubuntu@ip-172-31-24-49:/var/www/html$ ls
+index.html  mediplus-lite
+ubuntu@ip-172-31-24-49:/var/www/html$ sudo mv index.html /var/www
+ubuntu@ip-172-31-24-49:/var/www/html$ cd\
+>
+ubuntu@ip-172-31-24-49:~$ cd /var/www
+ubuntu@ip-172-31-24-49:/var/www$ ls
+html  index.html
+ubuntu@ip-172-31-24-49:/var/www$ cd html
+ubuntu@ip-172-31-24-49:/var/www/html$ ls
+mediplus-lite
