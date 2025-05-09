@@ -1,0 +1,38 @@
+npm install -g @angular/cli@latest
+ng new angularapp
+cd .\angularapp\
+ng serve
+
+app.component.html
+-> <h3> Form </h3>
+
+<input type="text" #name placeholder="Enter your Name" name="name">
+<input type="email" #email placeholder="Enter your email" name="email">
+
+
+<button (click) = "getValue(name.value, email.value)">Register</button>
+
+<h1>Your registered data</h1>
+<p>name = {{displayName}}</p>
+<p>email = {{displayEmail}}</p>
+
+app.component.ts
+-> import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'Form';
+  displayName = "";
+  displayEmail = "";
+
+  getValue(name : string, email : string){
+    this.displayName = name;
+    this.displayEmail = email;
+  }
+}
