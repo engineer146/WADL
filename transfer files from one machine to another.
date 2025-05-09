@@ -1,0 +1,14 @@
+step-:
+1) create 2 folders VM1 and VM2
+2) open gitbash for this 2 folders
+3)paste the link-: vagrant init bento/ubuntu-22.04 --box-version 202502.21.0 
+4) and then use below commands->>
+
+vagrant up
+vagrant ssh 
+sudo apt install net-tools
+ifconfig
+touch user.txt
+nano user.txt
+cat user.txt
+scp user.txt vagrant@192.168.56.34:/home/vagrant/
