@@ -1,0 +1,103 @@
+index.html
+-> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+</head>
+<body>
+    <h2>User registration</h2>
+    <form id="regForm">
+       <input type="text" placeholder="Name" id="name" required> 
+       <input type="email" placeholder="email" id="email" required>
+       <button type="submit">Register</button>
+    </form>
+    <br>
+
+    <a href="./user.html">registered students</a>
+
+    <script>
+
+        document.getElementById('regForm').addEventListener('submit',function(e) {
+            e.preventDefault()
+
+            const name=document.getElementById('name').value;
+            const email=document.getElementById('email').value;
+
+            const user = {name,email}
+            
+            fetch('http://localhost:3000/register',{
+                method:'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(user)
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert('User registered!')
+                localStorage.setItem('lastUser',JSON.stringify(data.user));
+                document.getElementById('regForm').reset();
+            })
+        })
+    </script>
+</body>
+</html>
+
+user.html
+-> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+
+</head>
+<body>
+    <h2>Registered users</h2>
+    <ul id="userList"></ul>
+
+    <br>
+
+    <a href="./index.html">Back to login</a>
+
+    <script>
+        fetch('http://localhost:3000/users')
+        .then(res=>res.json())
+        .then(data =>{
+            const list = document.getElementById('userList')
+            data.forEach(user =>{
+                const li=document.createElement('li')
+                li.textContent=`${user.name}  (${user.email})`
+                list.appendChild(li);
+            })
+        })
+    </script>
+    
+</body>
+</html>
+
+server.js
+->
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const app= express()
+const PORT=3000
+let users = []
+app.use(cors())
+app.use(bodyParser.json())
+app.use(express.static(__dirname))
+
+app.post('/register',(req,res)=>{
+    const user =req.body
+    users.push(user)
+    res.json({message : 'User registered',user})
+})
+app.get('/users', (req,res) =>{
+    res.json(users);
+})
+app.listen(PORT, () =>{
+    console.log(`Server is running at port ${PORT}`)
+})
