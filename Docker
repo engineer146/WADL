@@ -1,0 +1,27 @@
+docker -v
+docker images
+docker ps
+docker pull openjdk | docker pull python | docker pull mysql
+docker images
+docker run --name JAVA -it -d openjdk  | docker run --name python -it -d python
+docker ps
+docker exec -it JAVA jshell -> open jshell  | docker exec -it python  python3
+
+System.out.println("Hello I am Yash ");
+
+int a=10;
+int b=20 ;
+System.out.println(a+b);
+
+java- /exit | python- exit ()
+docker ps
+docker stop put-containerid
+
+docker container rm put-id
+
+docker ps
+
+docker images
+
+docker image prune -> it will delete all images
+
